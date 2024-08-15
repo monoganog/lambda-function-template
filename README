@@ -1,0 +1,14 @@
+A template repository for deploying Lambda functions to AWS using a Github Action
+
+Requires some Repository Variables to be set on the repository, which should be handled
+by the TF module
+
+Requires AWS auth to be configured (ideally via OIDC, but actions secrets would work as well, the yaml would need to be modified).
+
+Broadly does the following:
+
+# Get the bucket name from TF output
+aws s3 cp lambda_function.zip s3://S3_BUCKET/
+
+# same, function name too
+aws lambda update-function-code  --function-name FUNCTION_NAME  --s3-bucket S3_BUCKET --s3-key lambda_function.zip
